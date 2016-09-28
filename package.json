@@ -1,0 +1,21 @@
+{
+  "name": "ReactReduxTS",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start"
+  },
+  "dependencies": {
+    "@types/chai": "^3.4.34",
+    "@types/mocha": "^2.2.32",
+    "@types/react": "^0.14.37",
+    "@types/react-native": "^0.29.35",
+    "chai": "^3.5.0",
+    "gaze-run-interrupt": "^1.0.1",
+    "mocha": "^3.1.0",
+    "react": "15.3.2",
+    "react-native": "0.34.1",
+    "tslint": "^3.15.1",
+    "typescript": "^2.0.3"
+  }
+}
