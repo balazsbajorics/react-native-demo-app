@@ -7,14 +7,14 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 
 import { reducers } from './redux'
-import { MainScreenController } from './ui/MainScreen'
+import { MainScreenContainer } from './ui/MainScreen'
 
 
 const store = createStore(reducers)
 
 class EntryPoint extends Component<any, any> {
     render() {
-        return (<Provider store={store}><MainScreenController /></Provider>)
+        return (<Provider store={store}><MainScreenContainer /></Provider>)
     }
 }
 

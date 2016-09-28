@@ -1,54 +1,25 @@
 import * as React from 'react'
 import {
-    Platform,
     StatusBar,
-    StyleSheet,
-    Text,
-    TextStyle,
-    TouchableOpacity,
     View,
-    ViewStyle,
 } from 'react-native'
+import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 
-import { State, setTitle } from '../redux'
+import { State, setTitle, textInput } from '../redux'
+import { styles } from './style'
+import { LabeledField } from './LabeledField'
+import { TextInputField } from './TextInputField'
+import { ChangeButton } from './ChangeButton'
 
-
-const fontFamily = (Platform.OS === 'ios') ? 'menlo' : 'monospace'
-
-type Styles = {
-    container: ViewStyle,
-    welcome: TextStyle,
-    instructions: TextStyle
-};
-
-const styles = StyleSheet.create<Styles>({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#282c34',
-    },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-        color: '#A768BA',
-        fontFamily: fontFamily,
-    },
-    instructions: {
-        textAlign: 'center',
-        color: '#A8AFBB',
-        marginBottom: 5,
-        fontFamily: fontFamily,
-    },
-})
 
 interface MainScreenProps {
     title: string
-    onPress: () => void
+    editedTextValue: string
+    onTextInput: (text: string) => void
+    onSetTitle: (text: string) => void
 }
-const MainScreen = ({ title, onPress }: MainScreenProps) => {
+const MainScreen = ({ title, editedTextValue, onTextInput, onSetTitle }: MainScreenProps) => {
     return (
         <View style={{ flex: 1 }}>
             <StatusBar
@@ -56,14 +27,10 @@ const MainScreen = ({ title, onPress }: MainScreenProps) => {
                 barStyle='light-content'
             />
             <View style={styles.container}>
-                <Text style={styles.welcome}>
-                    {title}
-                </Text>
-                <TouchableOpacity onPress={onPress}>
-                    <Text style={styles.instructions}>
-                        Tap here to change the title
-                    </Text>
-                </TouchableOpacity>
+                <LabeledField label='title' value={title} />
+                <LabeledField label='textInputValue' value={editedTextValue} />
+                <TextInputField textInput={editedTextValue} onTextInput={onTextInput} />
+                <ChangeButton onPress={() => onSetTitle(editedTextValue)} />
             </View>
         </View>
     )
@@ -72,11 +39,13 @@ const MainScreen = ({ title, onPress }: MainScreenProps) => {
 const mapStateToProps = (state: State) => {
     return {
         title: state.title,
+        editedTextValue: state.textInputValue,
     }
 }
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: Dispatch<any>) => {
     return {
-        onPress: () => dispatch(setTitle('it works!')),
+        onTextInput: (text: string) => dispatch(textInput(text)),
+        onSetTitle: (text: string) => dispatch(setTitle(text)),
     }
 }
-export const MainScreenController = connect(mapStateToProps, mapDispatchToProps)(MainScreen)
+export const MainScreenContainer = connect(mapStateToProps, mapDispatchToProps)(MainScreen)

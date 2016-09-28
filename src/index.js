@@ -10,7 +10,7 @@ const store = redux_1.createStore(redux_2.reducers);
 class EntryPoint extends react_1.Component {
     render() {
         return (React.createElement(react_redux_1.Provider, {store: store}, 
-            React.createElement(MainScreen_1.MainScreenController, null)
+            React.createElement(MainScreen_1.MainScreenContainer, null)
         ));
     }
 }
